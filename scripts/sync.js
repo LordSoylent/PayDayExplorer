@@ -95,6 +95,7 @@ function is_locked(cb) {
     var fname = './tmp/' + database + '.pid';
     fs.exists(fname, function (exists){
       if(exists) {
+        console.log("from lock: %s", fname);
         return cb(true);
       } else {
         return cb(false);
@@ -140,21 +141,21 @@ is_locked(function (exists) {
                 db.get_stats(settings.coin, function(stats){
                   if (settings.heavy == true) {
                     db.update_heavy(settings.coin, stats.count, 20, function(){
-                    
+
                     });
                   }
                   if (mode == 'reindex') {
-                    Tx.remove({}, function(err) { 
-                      Address.remove({}, function(err2) { 
+                    Tx.remove({}, function(err) {
+                      Address.remove({}, function(err2) {
                         Richlist.update({coin: settings.coin}, {
                           received: [],
                           balance: [],
-                        }, function(err3) { 
-                          Stats.update({coin: settings.coin}, { 
+                        }, function(err3) {
+                          Stats.update({coin: settings.coin}, {
                             last: 0,
                           }, function() {
                             console.log('index cleared (reindex)');
-                          }); 
+                          });
                           db.update_tx_db(settings.coin, 1, stats.count, settings.update_timeout, function(){
                             db.update_richlist('received', function(){
                               db.update_richlist('balance', function(){
@@ -167,7 +168,7 @@ is_locked(function (exists) {
                           });
                         });
                       });
-                    });              
+                    });
                   } else if (mode == 'check') {
                     db.update_tx_db(settings.coin, 1, stats.count, settings.check_timeout, function(){
                       db.get_stats(settings.coin, function(nstats){
@@ -227,4 +228,8 @@ is_locked(function (exists) {
       });
     });
   }
+});
+
+process.on('exit', (code) => {
+ exit();
 });
