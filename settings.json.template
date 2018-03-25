@@ -68,7 +68,9 @@
     "googleplus": false,
     "search": true,
     "movement": true,
-    "network": true
+    "network": true,
+    "masternodes": true
+
   },
 
   // index page (valid options for difficulty are POW, POS or Hybrid)
