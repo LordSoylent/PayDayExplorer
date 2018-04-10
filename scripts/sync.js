@@ -230,6 +230,6 @@ is_locked(function (exists) {
   }
 });
 
-process.on('exit', (code) => {
- exit();
-});
+//process.on('exit', (code) => {
+// exit();
+//});
