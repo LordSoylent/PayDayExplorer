@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
     //, Masternodes = require('../models/masternodes')
     , request = require('request');
 
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 
 var dbString = 'mongodb://' + settings.dbsettings.user;
 dbString = dbString + ':' + settings.dbsettings.password;
@@ -36,7 +36,9 @@ function Action() {
         json: true
     }, function (error, response, body) {
         var mn_hash = Object.keys(body);
-
+	MyModel.remove({}, function(err) { 
+	   console.log('collection removed')
+	});
         lib.syncLoop(mn_hash.length, function (loop) {
             var mn = mn_hash[loop.iteration()];
             var mn_data = body[mn].split(/\s+/);
