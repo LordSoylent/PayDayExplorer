@@ -18,7 +18,7 @@ An open source block explorer written in node.js.
 
 *  node.js >= 0.10.28
 *  mongodb 2.6.x
-*  *coind
+*  *pdd
 
 ### Create database
 
@@ -94,7 +94,7 @@ sync.js (located in scripts/) is used for updating the local databases. This scr
 
 *Example crontab; update index every minute and market data every 2 minutes*
 
-    */1 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/sync.js index update > /dev/null 2>&1
+    */1 * * * * cd /path/to/explorer && /bin/bash scripts/update.sh
     */2 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/sync.js market > /dev/null 2>&1
     */5 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/peers.js > /dev/null 2>&1
     */5 * * * * cd /path/to/explorer && /usr/bin/nodejs scripts/masternodes.js > /dev/null 2>&1
@@ -104,11 +104,6 @@ sync.js (located in scripts/) is used for updating the local databases. This scr
 Iquidus Explorer is intended to be generic so it can be used with any wallet following the usual standards. The wallet must be running with atleast the following flags
 
     -daemon -txindex
-
-### Donate
-
-    BTC: 168hdKA3fkccPtkxnX8hBrsxNubvk4udJi
-    JBS: JZp9893FMmrm1681bDuJBU7c6w11kyEY7D
 
 ### Known Issues
 

@@ -60,7 +60,7 @@ if (process.argv[2] == 'index') {
 
 function create_lock(cb) {
   if ( database == 'index' ) {
-    var fname = './tmp/' + database + '.pid';
+    var fname = './tmp/' + database + '_' + mode + '.pid';
     fs.appendFile(fname, process.pid, function (err) {
       if (err) {
         console.log("Error: unable to create %s", fname);
@@ -76,7 +76,7 @@ function create_lock(cb) {
 
 function remove_lock(cb) {
   if ( database == 'index' ) {
-    var fname = './tmp/' + database + '.pid';
+    var fname = './tmp/' + database + '_' + mode + '.pid';
     fs.unlink(fname, function (err){
       if(err) {
         console.log("unable to remove lock: %s", fname);
@@ -92,7 +92,7 @@ function remove_lock(cb) {
 
 function is_locked(cb) {
   if ( database == 'index' ) {
-    var fname = './tmp/' + database + '.pid';
+    var fname = './tmp/' + database + '_' + mode + '.pid';
     fs.exists(fname, function (exists){
       if(exists) {
         console.log("from lock: %s", fname);
@@ -230,6 +230,6 @@ is_locked(function (exists) {
   }
 });
 
-//process.on('exit', (code) => {
-// exit();
-//});
+process.on('exit', (code) => {
+ exit();
+});
